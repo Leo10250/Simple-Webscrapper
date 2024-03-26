@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 import * as cheerio from 'cheerio';
+import fs from 'fs';
 
 async function scrapeSite(url) {
     const resposne = await fetch(url);
@@ -23,8 +24,8 @@ const url =
     'https://www.discover.com/personal-loans/resources/consolidate-debt/plan-after-recession/';
 scrapeSite(url)
     .then((result) => {
-        result.forEach((element, index) => {
-            console.log(element, '\n');
+        fs.writeFile('Output.html', result.join('\n'), (err) => {
+            if (err) throw err;
         });
     })
     .catch((err) => console.log(err));
